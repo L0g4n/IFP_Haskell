@@ -56,3 +56,13 @@ type Total = (Name, Int)
 getMarks :: Entry -> Total
 getMarks (n, (m1, m2, m3)) = (n, result) 
     where result = m1 + m2 + m3
+
+-- iteration of a list through accumulator to get the sum of the list
+sumList :: Num a => [a] -> a -> a
+sumList [] y = y
+sumList (x : xs) y = sumList xs (x + y)
+
+-- with pattern matching without accumulator
+sumListRec :: Num a => [a] -> a
+sumListRec [] = 0
+sumListRec (x : xs) = x + sumListRec xs

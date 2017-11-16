@@ -96,3 +96,9 @@ sumFact n | n < 0 = 0
 arithmeticSeries :: Int -> Int -> Int -> Int
 arithmeticSeries a n d | n <= 0 = a
                        | otherwise = 12
+
+type Time = (Int, Int)
+
+-- adds two tuples of `Time`
+addTimes :: Time -> Time -> Time
+addTimes (x, x') (y, y') = ((x + y) + (x' + y') `div` 60, (x' + y') `mod` 60)
