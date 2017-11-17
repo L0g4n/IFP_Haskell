@@ -114,3 +114,14 @@ sumTimes (x : xs) = addTimes x (0, 0) + sumTimes xs -}
 sumTimes :: [Time] -> Time -> Time
 sumTimes [] y = addTimes y (0, 0)
 sumTimes (x : xs) y = sumTimes xs (addTimes x y)
+
+type Moves = (Char, Char)
+type Solution = [Moves]
+
+hanoi :: Int -> Solution
+hanoi n = hanoi' n 'a' 'c' 'b'
+
+hanoi' :: Int -> Char -> Char -> Char -> Solution
+hanoi' n a c b
+    | n <= 0 = []
+    | otherwise = hanoi' (n-1) a b c ++ (a, c) : hanoi' (n-1) b c a
