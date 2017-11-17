@@ -101,4 +101,16 @@ type Time = (Int, Int)
 
 -- adds two tuples of `Time`
 addTimes :: Time -> Time -> Time
-addTimes (x, x') (y, y') = ((x + y) + (x' + y') `div` 60, (x' + y') `mod` 60)
+addTimes (x, x') (y, y') = ((x + y) + carry, (x' + y') `mod` 60) where
+    carry = (x' + y') `div` 60
+
+{- --TODO: this version does not work currently. 
+-- recursive function to sum over a list of `Time`s, i.e. `[Time]`
+sumTimes :: [Time] -> Time
+sumTimes [] = (0, 0)
+sumTimes (x : xs) = addTimes x (0, 0) + sumTimes xs -}
+
+-- sum a list of `Time`s with an accumulator
+sumTimes :: [Time] -> Time -> Time
+sumTimes [] y = addTimes y (0, 0)
+sumTimes (x : xs) y = sumTimes xs (addTimes x y)
