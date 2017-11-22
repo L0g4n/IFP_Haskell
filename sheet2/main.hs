@@ -19,3 +19,8 @@ pythagoreanTriples :: Int -> [Triple]
 pythagoreanTriples n 
     | n < 0 = []
     | otherwise = [(a, b, c) | a <- [1 .. n], b <- [a .. n], c <- [b .. n], a^2 + b^2 == c^2]
+
+-- returns a list containing the sum of the corresponding elements of the two lists, i.e. drops any element that ends up unpaired
+-- e.g. `[1, 2] [3, 4, 5] == [4,6]`, `zipWith` basically does all the work
+addPairwise :: [Int] -> [Int] -> [Int]
+addPairwise x y = zipWith (+) x y
