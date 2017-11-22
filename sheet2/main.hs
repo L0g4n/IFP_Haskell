@@ -4,13 +4,17 @@ module Main where
 main :: IO ()
 main = return ()
 
+-- returns a list containing all even numbers between x and y in decreasing order
 listEvens :: Int -> Int -> [Int]
 listEvens x y
     | y < x = []
     | otherwise = [y | y <- [y, y - 1 .. x], y `mod` 2 == 0]
 
+
 type Triple = (Int, Int, Int)
 
+-- returns the list of pythagorean triples smaller than n
+-- i.e. (a, b, c) with a <= b <= c and a²+b²=c²
 pythagoreanTriples :: Int -> [Triple]
 pythagoreanTriples n 
     | n < 0 = []
