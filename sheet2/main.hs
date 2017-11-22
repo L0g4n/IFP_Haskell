@@ -24,3 +24,14 @@ pythagoreanTriples n
 -- e.g. `[1, 2] [3, 4, 5] == [4,6]`, `zipWith` basically does all the work
 addPairwise :: [Int] -> [Int] -> [Int]
 addPairwise x y = zipWith (+) x y
+
+subList :: [a] -> (Int, Int) -> [a]
+subList list (i, j)
+    | i < 0 || j < i || j > length list - 1 = []
+    | otherwise = [list !! n | n <- [i .. j]]
+
+subList' :: [a] -> (Int, Int) -> [a]
+subList' list (i, j)
+    | i < 0 || j < i || j > length list - 1 = []
+    | otherwise = drop i takeLs
+        where takeLs = take (j+1) list
