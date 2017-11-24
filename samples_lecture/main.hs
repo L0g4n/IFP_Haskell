@@ -66,3 +66,32 @@ sumList (x : xs) y = sumList xs (x + y)
 sumListRec :: Num a => [a] -> a
 sumListRec [] = 0
 sumListRec (x : xs) = x + sumListRec xs
+
+isSmall :: Char -> Bool
+isSmall c = 'a' <= c && c <= 'z'
+
+{- chapter: higher-order functions -}
+{- =============================== -}
+
+areAllSmall :: String -> Bool
+areAllSmall xs = all isSmall xs
+
+someIsSmall :: String -> Bool
+someIsSmall xs = any isSmall xs
+
+allLessThan :: Int -> [Int] -> Bool
+-- checks if all elements of xs are smaller than n
+allLessThan n xs = all (< n) xs
+
+-- map allAreSmall ["Function", "section", "ratio"]
+
+-- returns a list of singleton lists for every element of xs
+singleton :: [a] -> [[a]]
+-- the colon constructs a list, puts it into the empty list; for every element
+singleton xs = map (: []) xs
+
+-- anonymous functions
+-- map (\n -> (n * (n + 1)) `div` 2) [1, 2, 3, 4]
+
+-- filter (\x -> (length x) == 2) [[], [1, 2], [1], [1, 2, 3]]
+

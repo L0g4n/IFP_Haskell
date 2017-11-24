@@ -35,3 +35,8 @@ subList' list (i, j)
     | i < 0 || j < i || j > length list - 1 = []
     | otherwise = drop i takeLs
         where takeLs = take (j+1) list
+
+{- together :: [a] -> [(a, a)]
+together xs 
+    | length xs < 2 = []
+    | otherwise = zip 1 xs $ tail -}
