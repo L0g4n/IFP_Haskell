@@ -40,3 +40,15 @@ subList' list (i, j)
 together xs 
     | length xs < 2 = []
     | otherwise = zip 1 xs $ tail -}
+
+-- Exercise 2.2
+
+-- 2.2.1
+contains :: Eq a => a -> [a] -> Bool
+contains _ [] = False
+contains n (x : xs) = if n == x then True else contains n xs
+
+-- this time with higher-order functions and selections
+contains2 :: Eq a => a -> [a] -> Bool
+contains2 n xs = any (== n) xs
+
