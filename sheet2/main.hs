@@ -76,5 +76,6 @@ same x y
     | otherwise = [y]
 
 -- second with `filter`
+-- easier to write, because you do not have to implement the removal of one element, just the predicate.
 remove2 :: Eq a => a -> [a] -> [a]
 remove2 x xs = filter (\e -> e /= x) xs
