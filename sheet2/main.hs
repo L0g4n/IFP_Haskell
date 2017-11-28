@@ -42,6 +42,7 @@ together xs
     | otherwise = zip 1 xs $ tail -}
 
 -- Exercise 2.2
+-- all functions have to be **recursively** defined
 
 -- 2.2.1
 contains :: Eq a => a -> [a] -> Bool
@@ -52,3 +53,28 @@ contains n (x : xs) = if n == x then True else contains n xs
 contains2 :: Eq a => a -> [a] -> Bool
 contains2 n xs = any (== n) xs
 
+-- 2.2.2
+-- returns the nth item in a list 
+{- TODO:
+nth :: Int -> [a] -> Maybe a
+nth _ [] = Nothing
+nth n xs
+    | n > length xs || n < 0 = Nothing
+    | n -}    
+
+-- 2.2.3
+-- remove all occurences of an item in a list
+
+-- first with pattern-matching and guards
+remove :: Eq a => a -> [a] -> [a]
+remove _ [] = []
+remove x (y : ys) = same x y ++ remove x ys
+
+same :: Eq a => a -> a -> [a]
+same x y 
+    | x == y = []
+    | otherwise = [y]
+
+-- second with `filter`
+remove2 :: Eq a => a -> [a] -> [a]
+remove2 x xs = filter (\e -> e /= x) xs
