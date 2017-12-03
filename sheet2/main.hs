@@ -57,8 +57,6 @@ contains2 n xs = any (== n) xs
 -- returns the nth item in a list 
 nth :: Int -> [a] -> Maybe a
 nth _ [] = Nothing
-nth n xs
-    | n > length xs || n < 0 = Nothing
 nth n (x : xs)
     | n == 0 = Just x
     | otherwise = nth (n - 1) xs
