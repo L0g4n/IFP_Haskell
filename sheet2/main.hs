@@ -67,13 +67,10 @@ nth n (x : xs)
 -- first with pattern-matching and guards
 remove :: Eq a => a -> [a] -> [a]
 remove _ [] = []
-remove x (y : ys) = same x y ++ remove x ys
-
--- helper function for `remove`
-same :: Eq a => a -> a -> [a]
-same x y 
-    | x == y = []
-    | otherwise = [y]
+remove n (x : xs)
+    | x == n = [] ++ rest
+    | otherwise = x : rest
+        where rest = remove n xs
 
 -- second with `filter`
 -- easier to write, because you do not have to implement the removal of one element, just the predicate.
