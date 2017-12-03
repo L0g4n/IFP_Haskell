@@ -55,12 +55,13 @@ contains2 n xs = any (== n) xs
 
 -- 2.2.2
 -- returns the nth item in a list 
-{- TODO:
 nth :: Int -> [a] -> Maybe a
 nth _ [] = Nothing
 nth n xs
     | n > length xs || n < 0 = Nothing
-    | n -}    
+nth n (x : xs)
+    | n == 0 = Just x
+    | otherwise = nth (n - 1) xs
 
 -- 2.2.3
 -- remove all occurences of an item in a list
@@ -70,6 +71,7 @@ remove :: Eq a => a -> [a] -> [a]
 remove _ [] = []
 remove x (y : ys) = same x y ++ remove x ys
 
+-- helper function for `remove`
 same :: Eq a => a -> a -> [a]
 same x y 
     | x == y = []
