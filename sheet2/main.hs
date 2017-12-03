@@ -79,3 +79,18 @@ same x y
 -- easier to write, because you do not have to implement the removal of one element, just the predicate.
 remove2 :: Eq a => a -> [a] -> [a]
 remove2 x xs = filter (\e -> e /= x) xs
+
+-- 2.2.4
+-- substitute all occurrences of a given item for another
+
+-- first with recursion
+substitute :: Eq a => a -> a -> [a] -> [a]
+substitute _ _ [] = []
+substitute this that (x : xs)
+    | x == this = that : rest
+    | otherwise = x : rest
+        where rest = substitute this that xs -- after we replaced `this` with `that` (or there was nothing to replace) we still have to loop through the rest of the list
+
+-- second with `map`
+substitute2 :: Eq a => a -> a -> [a] -> [a]
+substitute2 this that = map (\x -> if x == this then that else x)
