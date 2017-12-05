@@ -55,12 +55,11 @@ contains2 n xs = any (== n) xs
 
 -- 2.2.2
 -- returns the nth item in a list 
-{- TODO:
 nth :: Int -> [a] -> Maybe a
 nth _ [] = Nothing
-nth n xs
-    | n > length xs || n < 0 = Nothing
-    | n -}    
+nth n (x : xs)
+    | n == 0 = Just x
+    | otherwise = nth (n - 1) xs
 
 -- 2.2.3
 -- remove all occurences of an item in a list
@@ -68,14 +67,27 @@ nth n xs
 -- first with pattern-matching and guards
 remove :: Eq a => a -> [a] -> [a]
 remove _ [] = []
-remove x (y : ys) = same x y ++ remove x ys
-
-same :: Eq a => a -> a -> [a]
-same x y 
-    | x == y = []
-    | otherwise = [y]
+remove n (x : xs)
+    | x == n = [] ++ rest
+    | otherwise = x : rest
+        where rest = remove n xs
 
 -- second with `filter`
 -- easier to write, because you do not have to implement the removal of one element, just the predicate.
 remove2 :: Eq a => a -> [a] -> [a]
 remove2 x xs = filter (\e -> e /= x) xs
+
+-- 2.2.4
+-- substitute all occurrences of a given item for another
+
+-- first with recursion
+substitute :: Eq a => a -> a -> [a] -> [a]
+substitute _ _ [] = []
+substitute this that (x : xs)
+    | x == this = that : rest
+    | otherwise = x : rest
+        where rest = substitute this that xs -- after we replaced `this` with `that` (or there was nothing to replace) we still have to loop through the rest of the list
+
+-- second with `map`
+substitute2 :: Eq a => a -> a -> [a] -> [a]
+substitute2 this that = map (\x -> if x == this then that else x)
