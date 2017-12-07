@@ -36,10 +36,10 @@ subList' list (i, j)
     | otherwise = drop i takeLs
         where takeLs = take (j+1) list
 
-{- together :: [a] -> [(a, a)]
+together :: [a] -> [(a, a)]
 together xs 
     | length xs < 2 = []
-    | otherwise = zip 1 xs $ tail -}
+    | otherwise = zip xs $ tail xs
 
 -- Exercise 2.2
 -- all functions have to be **recursively** defined
@@ -91,3 +91,23 @@ substitute this that (x : xs)
 -- second with `map`
 substitute2 :: Eq a => a -> a -> [a] -> [a]
 substitute2 this that = map (\x -> if x == this then that else x)
+
+
+-- Exercise 2.3
+-- higher-order functions
+
+-- 2.3.1
+addDashes :: [String] -> [String]
+addDashes = map ("--" ++)
+
+-- 2.3.2
+swapPairs :: [(a, a)] -> [(a, a)]
+swapPairs = map (\(x, y) -> (y, x))
+
+-- TODO:
+--swapPairs2 :: [(a, a)] -> [(a, a)]
+--swapPairs2 [(a, b)]= [(b, a) | ] 
+
+-- 2.3.3
+applyEach :: [(a -> b, a)] -> [b]
+applyEach 
