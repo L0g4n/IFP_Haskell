@@ -104,10 +104,45 @@ addDashes = map ("--" ++)
 swapPairs :: [(a, a)] -> [(a, a)]
 swapPairs = map (\(x, y) -> (y, x))
 
--- TODO:
---swapPairs2 :: [(a, a)] -> [(a, a)]
---swapPairs2 [(a, b)]= [(b, a) | ] 
+-- with list comprehension
+swapPairs2 :: [(a, a)] -> [(a, a)]
+swapPairs2 xs = [(y, x) | (x, y) <- xs]
 
 -- 2.3.3
 applyEach :: [(a -> b, a)] -> [b]
-applyEach 
+applyEach xs = map (\(x, y) -> x y) xs
+
+applyEach2 :: [(a -> b, a)] -> [b]
+applyEach2 xs = [x y | (x, y) <- xs]
+
+-- 2.3.4
+theSame:: String -> Bool
+theSame "" = True
+theSame (c : cs) = all (== c) cs
+
+-- 2.4.1
+twice :: (a -> a) -> a -> a
+twice f n = f(f n)
+
+-- 2.4.2
+iter :: Int -> (a -> a) -> a -> a
+iter n f
+    | n <= 0    = id
+    | otherwise = f . iter (n-1) f
+
+-- 2.4.3
+mySum' :: Num a => [a] -> a
+mySum' [] = 0
+mySum' (a : as) =  a + mySum' as
+
+mySum :: Num a => [a] -> a
+mySum = foldr (+) 0
+
+-- 2.4.4
+myUnzip :: [(a, b)] -> ([a], [b])
+myUnzip = foldr (\(a, b) (as, bs) -> (a : as, b : bs)) ([], [])
+
+-- 2.4.5
+myMap :: (a -> b) -> [a] -> [b]
+myMap _ [] = []
+myMap f (x : xs) = f x : myMap f xs
