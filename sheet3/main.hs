@@ -35,8 +35,49 @@ monthFromTo start end = [start .. end]
 
 -- 3.1.6
 monthToSeason :: Month -> Season
-monthToSeason m 
+monthToSeason month = toEnum $ (fromEnum month - 2) `div` 3 `mod` 4
+{- monthToSeason m 
     | m >= Mar && m <= May = Spring
     | m >= Jun && m <= Aug = Summer
     | m >= Sep && m <= Nov = Autumn
-    | otherwise = Winter
+    | otherwise = Winter -}
+
+-- 3.1.7
+data MyBoolean = MyFalse | MyTrue
+                deriving (Show, Eq)
+
+booltoMyBoolean :: Bool -> MyBoolean
+booltoMyBoolean b 
+    | b == False = MyFalse
+    | otherwise = MyTrue
+
+myBooleanToBool :: MyBoolean -> Bool
+myBooleanToBool MyTrue = True
+myBooleanToBool MyFalse = False
+
+-- 3.1.8
+(&:&) :: MyBoolean -> MyBoolean -> MyBoolean
+(&:&) (MyTrue) (MyTrue) = MyTrue
+(&:&) _ _ = MyFalse
+
+(|:|) :: MyBoolean -> MyBoolean -> MyBoolean
+(|:|) (MyFalse) (MyFalse) = MyFalse
+(|:|) _ _ = MyTrue
+
+-- 3.1.9
+-- recursively
+myAnd :: [MyBoolean] -> MyBoolean
+myAnd [] = MyTrue
+myAnd (MyFalse : _) = MyFalse
+myAnd (_ : bs) = myAnd bs
+
+-- TODO:
+{- -- with `map`
+myAnd' :: [MyBoolean] -> MyBoolean
+myAnd' bs = map -}
+
+-- recursively
+myOr :: [MyBoolean] -> MyBoolean
+myOr [] = MyFalse
+myOr (MyTrue : _) = MyTrue
+myOr (_ : bs) = myOr bs
