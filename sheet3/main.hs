@@ -97,3 +97,16 @@ bitsToInt bits = bitsToIntHelper bits acc
 bitsToIntHelper :: [Bit] -> Int -> Int
 bitsToIntHelper [] _ = 0
 bitsToIntHelper (bit : bits) acc = 2^acc * fromEnum bit + bitsToIntHelper bits (acc - 1)
+
+{- 
+=============
+Exercise 3.2
+=============
+-}
+
+-- 3.2.1
+data Number = Exact Int | Approx Float
+
+rounded :: Number -> Int
+rounded (Exact n) = n
+rounded (Approx f) = round f
