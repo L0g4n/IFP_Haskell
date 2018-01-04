@@ -130,3 +130,7 @@ howOld (Person _ age) = age
 addAges :: Person -> Person -> Age
 addAges (Person _ (Years age)) (Person _ (Years age')) = sumAge
     where sumAge = (Years (age + age'))
+
+-- 3.2.3
+data Shape = Circle Float | Rectangle Float Float
+            deriving Show
