@@ -110,3 +110,23 @@ data Number = Exact Int | Approx Float
 rounded :: Number -> Int
 rounded (Exact n) = n
 rounded (Approx f) = round f
+
+-- 3.2.2
+data Age = Years Int 
+        deriving Show
+
+data Name = Name String String
+        deriving Show
+
+data Person = Person Name Age
+        deriving Show
+
+firstName :: Person -> String
+firstName (Person (Name first _) _) = first
+
+howOld :: Person -> Age
+howOld (Person _ age) = age
+
+addAges :: Person -> Person -> Age
+addAges (Person _ (Years age)) (Person _ (Years age')) = sumAge
+    where sumAge = (Years (age + age'))
