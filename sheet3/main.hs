@@ -87,7 +87,7 @@ myOr'' mybs = foldr (|:|) MyFalse mybs
 
 -- 3.1.10
 data Bit = O | I
-        deriving (Enum, Eq)
+        deriving (Enum)
 
 bitsToInt :: [Bit] -> Int
 bitsToInt bits = bitsToIntHelper bits acc
