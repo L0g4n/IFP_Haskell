@@ -84,3 +84,16 @@ myOr (_ : bs) = myOr bs
 -- with `foldr`
 myOr'' :: [MyBoolean] -> MyBoolean
 myOr'' mybs = foldr (|:|) MyFalse mybs
+
+-- 3.1.10
+data Bit = O | I
+        deriving (Enum, Eq)
+
+bitsToInt :: [Bit] -> Int
+bitsToInt bits = bitsToIntHelper bits acc
+                    where acc = length bits - 1
+
+-- with accumulator
+bitsToIntHelper :: [Bit] -> Int -> Int
+bitsToIntHelper [] _ = 0
+bitsToIntHelper (bit : bits) acc = 2^acc * fromEnum bit + bitsToIntHelper bits (acc - 1)
