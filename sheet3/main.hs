@@ -139,3 +139,8 @@ data Shape = Circle Float | Rectangle Float Float
 isRound :: Shape -> MyBoolean
 isRound (Circle _) = MyTrue
 isRound _ = MyFalse
+
+-- 3.2.5
+getArea :: Shape -> Float
+getArea (Circle radius) = pi * radius ** 2
+getArea (Rectangle l1 l2) = l1 * l2
