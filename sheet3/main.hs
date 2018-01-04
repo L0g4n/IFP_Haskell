@@ -71,8 +71,16 @@ myAnd (_ : bs) = myAnd bs
 myAnd' :: [MyBoolean] -> MyBoolean
 myAnd' bs = map -}
 
+-- with `foldr`
+myAnd'' :: [MyBoolean] -> MyBoolean
+myAnd'' mybs = foldr (&:&) MyTrue mybs
+
 -- recursively
 myOr :: [MyBoolean] -> MyBoolean
 myOr [] = MyFalse
 myOr (MyTrue : _) = MyTrue
 myOr (_ : bs) = myOr bs
+
+-- with `foldr`
+myOr'' :: [MyBoolean] -> MyBoolean
+myOr'' mybs = foldr (|:|) MyFalse mybs
