@@ -134,3 +134,8 @@ addAges (Person _ (Years age)) (Person _ (Years age')) = sumAge
 -- 3.2.3
 data Shape = Circle Float | Rectangle Float Float
             deriving Show
+
+-- 3.2.4
+isRound :: Shape -> MyBoolean
+isRound (Circle _) = MyTrue
+isRound _ = MyFalse
