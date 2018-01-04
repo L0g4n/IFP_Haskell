@@ -36,11 +36,6 @@ monthFromTo start end = [start .. end]
 -- 3.1.6
 monthToSeason :: Month -> Season
 monthToSeason month = toEnum $ (fromEnum month - 2) `div` 3 `mod` 4
-{- monthToSeason m 
-    | m >= Mar && m <= May = Spring
-    | m >= Jun && m <= Aug = Summer
-    | m >= Sep && m <= Nov = Autumn
-    | otherwise = Winter -}
 
 -- 3.1.7
 data MyBoolean = MyFalse | MyTrue
