@@ -164,3 +164,14 @@ getSlope (Point x1 y1) (Point x2 y2) = m
               else (Value (diffy / diffx))
                 where diffy = y2 - y1
                       diffx = x2 - x1
+
+
+-- 3.2.8
+data YIntercept = Intercept Float | Undefined
+                deriving Show
+
+getYIntercept :: Point -> Slope -> YIntercept
+getYIntercept (Point x y) (Value m) = b
+        where b = (Intercept (y - m * x))
+getYIntercept _ _ = Undefined
+
