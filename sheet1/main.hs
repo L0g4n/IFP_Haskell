@@ -16,7 +16,7 @@ ratio x y = (x + y) / (x - y)
 
 -- returns the length of the hypotenuse according to the pythagorean theorem
 hypotenuse :: Double -> Double -> Double
-hypotenuse x y = sqrt (x^2 + y^2)
+hypotenuse x y = sqrt (x**2 + y**2)
 
 xIntercept :: Double -> Double -> Double
 xIntercept m c = (-c) / m
@@ -94,7 +94,7 @@ sumFact n | n < 0 = 0
 
 -- TODO: return the nth number in the arithmetic series `a, a+d,a+2*d, ...`
 arithmeticSeries :: Int -> Int -> Int -> Int
-arithmeticSeries a n d | n <= 0 = a
+arithmeticSeries a n _ | n <= 0 = a
                        | otherwise = 12
 
 type Time = (Int, Int)

@@ -8,7 +8,7 @@ main = return ()
 listEvens :: Int -> Int -> [Int]
 listEvens x y
     | y < x = []
-    | otherwise = [y | y <- [y, y - 1 .. x], y `mod` 2 == 0]
+    | otherwise = [z | z <- [y, y - 1 .. x], z `mod` 2 == 0]
 
 
 type Triple = (Int, Int, Int)
@@ -18,7 +18,7 @@ type Triple = (Int, Int, Int)
 pythagoreanTriples :: Int -> [Triple]
 pythagoreanTriples n 
     | n < 0 = []
-    | otherwise = [(a, b, c) | a <- [1 .. n], b <- [a .. n], c <- [b .. n], a^2 + b^2 == c^2]
+    | otherwise = [(a, b, c) | a <- [1 .. n], b <- [a .. n], c <- [b .. n], a ^ (2 :: Int) + b ^ (2 :: Int) == c ^ (2 :: Int)]
 
 -- returns a list containing the sum of the corresponding elements of the two lists, i.e. drops any element that ends up unpaired
 -- e.g. `[1, 2] [3, 4, 5] == [4,6]`, `zipWith` basically does all the work
