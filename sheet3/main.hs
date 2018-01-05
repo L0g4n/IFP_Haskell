@@ -6,7 +6,7 @@ main = return ()
 
 -- 3.1.1
 data Season = Spring | Summer | Autumn | Winter
-            deriving (Eq, Show, Enum)
+        deriving (Eq, Show, Enum)
 
 theSeasons :: [Season]
 theSeasons = enumFrom Spring
@@ -21,7 +21,7 @@ mapSeasonsFrom xs = map (\x -> [] ++ seasonsFrom x) xs
 
 -- 3.1.4
 data Month = Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec 
-            deriving (Eq, Ord, Show, Enum)
+        deriving (Eq, Ord, Show, Enum)
 
 intMonth :: Month -> Int
 intMonth s = fromEnum s + 1
@@ -39,7 +39,7 @@ monthToSeason month = toEnum $ (fromEnum month - 2) `div` 3 `mod` 4
 
 -- 3.1.7
 data MyBoolean = MyFalse | MyTrue
-                deriving (Show, Eq)
+        deriving (Show, Eq)
 
 booltoMyBoolean :: Bool -> MyBoolean
 booltoMyBoolean b 
@@ -133,7 +133,7 @@ addAges (Person _ (Years age)) (Person _ (Years age')) = sumAge
 
 -- 3.2.3
 data Shape = Circle Float | Rectangle Float Float
-            deriving Show
+        deriving Show
 
 -- 3.2.4
 isRound :: Shape -> MyBoolean
@@ -147,7 +147,7 @@ getArea (Rectangle l1 l2) = l1 * l2
 
 -- 3.2.6
 data Point = Point Float Float
-            deriving Show
+        deriving Show
 
 dist :: Point -> Point -> Float
 dist (Point x1 y1) (Point x2 y2) = result
@@ -155,7 +155,7 @@ dist (Point x1 y1) (Point x2 y2) = result
 
 -- 3.2.7
 data Slope = Value Float | Infinite
-            deriving Show
+        deriving Show
 
 getSlope :: Point -> Point -> Slope
 getSlope (Point x1 y1) (Point x2 y2) = m
@@ -175,3 +175,14 @@ getYIntercept (Point x y) (Value m) = b
         where b = (Intercept (y - m * x))
 getYIntercept _ _ = Undefined
 
+-- 3.2.9
+-- the `Point` is the center of the figure
+-- no orientation of an object, so assume that all rectangles lie with the longest of its two sides parallel to the x-axis
+-- the other side parallel to the y-axis, if two sides have the same length, it lies with its sides parallel to the axes
+data Figure = Figure Shape Point
+        deriving Show
+
+-- moves a `Figure` by the two offsets given
+move :: Float -> Float -> Figure -> Figure
+move x_off y_off (Figure shape (Point x y)) = transl
+        where transl = (Figure shape (Point (x + x_off) (y + y_off)))
