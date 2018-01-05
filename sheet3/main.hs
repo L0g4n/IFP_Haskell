@@ -132,6 +132,7 @@ addAges (Person _ (Years age)) (Person _ (Years age')) = sumAge
     where sumAge = (Years (age + age'))
 
 -- 3.2.3
+-- Circle has a radius, Rectange has width & height
 data Shape = Circle Float | Rectangle Float Float
         deriving Show
 
@@ -186,3 +187,17 @@ data Figure = Figure Shape Point
 move :: Float -> Float -> Figure -> Figure
 move x_off y_off (Figure shape (Point x y)) = transl
         where transl = (Figure shape (Point (x + x_off) (y + y_off)))
+
+-- 3.2.10
+-- tests whether two figures overlap, i.e. two circles, two rectangles or a rectangle and a circle
+overlap :: Figure -> Figure -> Bool
+overlap (Figure (Circle r1) p1) (Figure (Circle r2) p2) = cond
+        where cond = dist p1 p2 < r1 + r2
+
+-- determines whether the first rectangle is completely to the left of the second one
+-- thats the case when all points of the first have a smaller x-coordinate than the smallest x-coordinate of the second
+leftOf :: Figure -> Figure -> Bool
+leftOf (Figure (Rectangle w1 _) (Point x1 _)) (Figure _ (Point x2 _)) = cond
+        where cond = x1 < x2 && trc_x < x2
+              trc_x = x_right
+              x_right = x1 + w1
