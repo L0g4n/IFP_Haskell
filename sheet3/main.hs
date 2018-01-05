@@ -152,3 +152,15 @@ data Point = Point Float Float
 dist :: Point -> Point -> Float
 dist (Point x1 y1) (Point x2 y2) = result
     where result = sqrt((y2 - y1) ** 2 + (x2 - x1) ** 2)
+
+-- 3.2.7
+data Slope = Value Float | Infinite
+            deriving Show
+
+getSlope :: Point -> Point -> Slope
+getSlope (Point x1 y1) (Point x2 y2) = m
+    where m = if x1 == x2 && y2 == y1
+              then Infinite
+              else (Value (diffy / diffx))
+                where diffy = y2 - y1
+                      diffx = x2 - x1
