@@ -144,3 +144,11 @@ isRound _ = MyFalse
 getArea :: Shape -> Float
 getArea (Circle radius) = pi * radius ** 2
 getArea (Rectangle l1 l2) = l1 * l2
+
+-- 3.2.6
+data Point = Point Float Float
+            deriving Show
+
+dist :: Point -> Point -> Float
+dist (Point x1 y1) (Point x2 y2) = result
+    where result = sqrt((y2 - y1) ** 2 + (x2 - x1) ** 2)
