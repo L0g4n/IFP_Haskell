@@ -214,3 +214,9 @@ above :: Figure -> Figure -> Bool
 above (Figure (Rectangle _ h1) (Point _ y1)) (Figure (Rectangle _ _) (Point _ y2)) = cond
         where cond = tlc_y < y2
               tlc_y = y1 + h1
+
+-- checks if first rectangle is below the second one
+below :: Figure -> Figure -> Bool
+below (Figure (Rectangle _ _) (Point _ y1)) (Figure (Rectangle _ h2) (Point _ y2)) = cond
+        where cond = y1 > tlc_y
+              tlc_y = y2 + h2
