@@ -197,7 +197,14 @@ overlap (Figure (Circle r1) p1) (Figure (Circle r2) p2) = cond
 -- determines whether the first rectangle is completely to the left of the second one
 -- thats the case when all points of the first have a smaller x-coordinate than the smallest x-coordinate of the second
 leftOf :: Figure -> Figure -> Bool
-leftOf (Figure (Rectangle w1 _) (Point x1 _)) (Figure _ (Point x2 _)) = cond
+leftOf (Figure (Rectangle w1 _) (Point x1 _)) (Figure (Rectangle _ _) (Point x2 _)) = cond
         where cond = x1 < x2 && trc_x < x2
               trc_x = x_right
               x_right = x1 + w1
+
+-- checks if first rectangle is right of the second one
+rightOf :: Figure -> Figure -> Bool
+rightOf (Figure (Rectangle _ _) (Point x1 _)) (Figure (Rectangle w2 _) (Point x2 _)) = cond
+        where cond = x1 > trc_x
+              trc_x = x_right
+              x_right = x2 + w2
