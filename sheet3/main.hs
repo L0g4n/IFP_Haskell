@@ -191,8 +191,12 @@ move x_off y_off (Figure shape (Point x y)) = transl
 -- 3.2.10
 -- tests whether two figures overlap, i.e. two circles, two rectangles or a rectangle and a circle
 overlap :: Figure -> Figure -> Bool
+-- two circles
 overlap (Figure (Circle r1) p1) (Figure (Circle r2) p2) = cond
         where cond = dist p1 p2 < r1 + r2
+-- two rectangles
+overlap r1 r2 = cond
+        where cond = not (leftOf r1 r2) && not (rightOf r1 r2) && not (above r1 r2) && not (below r1 r2)
 
 -- determines whether the first rectangle is completely to the left of the second one
 -- thats the case when all points of the first have a smaller x-coordinate than the smallest x-coordinate of the second
