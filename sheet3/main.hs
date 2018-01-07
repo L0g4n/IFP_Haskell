@@ -242,3 +242,30 @@ rectCornerInCircle (Figure (Rectangle w h) (Point x y)) (Figure (Circle r) m) = 
               trc = (Point (x + w) y)
               blc = (Point x (y + h))
               brc = (Point (x + w) (y + h))
+
+-- third and last case
+-- checks if a circle overlaps a side of a rectangle
+circleOverlapsSideRect :: Figure -> Figure -> Bool
+circleOverlapsSideRect (Figure (Circle r) (Point mx my)) (Figure (Rectangle w h) (Point x y)) = cond
+        where cond = topside || leftside || bottomside || rightside
+              topside = mx > tlc_x && mx < trc_x && dist m top < r
+              tlc_x = x
+              trc_x = x + w
+              m = (Point mx my)
+              top = (Point ((x + w) / 2) y)
+
+              leftside = my > tlc_y && my < blc_y && dist m left < r
+              tlc_y = y
+              blc_y = y + h
+              left = (Point x ((y + h) / 2))
+
+              bottomside = mx > blc_x && mx < brc_x && dist m bottom < r
+              blc_x = x
+              brc_x = trc_x
+              bottom = (Point ((x + w) / 2) (y + h))
+
+              rightside = my > trc_y && my < brc_y && dist m right < r
+              trc_y = y
+              brc_y = blc_y
+              right = (Point (x + w) ((y + h) / 2))
+
