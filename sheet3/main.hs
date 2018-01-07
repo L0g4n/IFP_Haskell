@@ -198,7 +198,7 @@ overlap (Figure (Circle r1) p1) (Figure (Circle r2) p2) = cond
 -- thats the case when all points of the first have a smaller x-coordinate than the smallest x-coordinate of the second
 leftOf :: Figure -> Figure -> Bool
 leftOf (Figure (Rectangle w1 _) (Point x1 _)) (Figure (Rectangle _ _) (Point x2 _)) = cond
-        where cond = x1 < x2 && trc_x < x2
+        where cond = trc_x < x2
               trc_x = x_right
               x_right = x1 + w1
 
@@ -208,3 +208,9 @@ rightOf (Figure (Rectangle _ _) (Point x1 _)) (Figure (Rectangle w2 _) (Point x2
         where cond = x1 > trc_x
               trc_x = x_right
               x_right = x2 + w2
+
+-- checks if first rectangle is above the second one
+above :: Figure -> Figure -> Bool
+above (Figure (Rectangle _ h1) (Point _ y1)) (Figure (Rectangle _ _) (Point _ y2)) = cond
+        where cond = tlc_y < y2
+              tlc_y = y1 + h1
