@@ -197,6 +197,9 @@ overlap (Figure (Circle r1) p1) (Figure (Circle r2) p2) = cond
 -- two rectangles
 overlap r1 r2 = cond
         where cond = not (leftOf r1 r2) && not (rightOf r1 r2) && not (above r1 r2) && not (below r1 r2)
+-- a circle and a rectangle
+overlap c r = cond
+        where cond = circleInRect c r || rectCornerInCircle r c || circleOverlapsSideRect c r
 
 -- determines whether the first rectangle is completely to the left of the second one
 -- thats the case when all points of the first have a smaller x-coordinate than the smallest x-coordinate of the second
@@ -268,4 +271,3 @@ circleOverlapsSideRect (Figure (Circle r) (Point mx my)) (Figure (Rectangle w h)
               trc_y = y
               brc_y = blc_y
               right = (Point (x + w) ((y + h) / 2))
-
