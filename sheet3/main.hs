@@ -224,3 +224,10 @@ below :: Figure -> Figure -> Bool
 below (Figure (Rectangle _ _) (Point _ y1)) (Figure (Rectangle _ h2) (Point _ y2)) = cond
         where cond = y1 > tlc_y
               tlc_y = y2 + h2
+
+-- checks if center of circle is *in* the rectangle
+circleInRectangle :: Figure -> Figure -> Bool
+circleInRectangle (Figure (Circle _) (Point mx my)) (Figure (Rectangle w h) (Point x y)) = cond
+        where cond = my > y && my < tlc_y && mx > x && mx < trc_x
+              tlc_y = y + h
+              trc_x = x + w
