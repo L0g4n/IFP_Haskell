@@ -225,9 +225,20 @@ below (Figure (Rectangle _ _) (Point _ y1)) (Figure (Rectangle _ h2) (Point _ y2
         where cond = y1 > tlc_y
               tlc_y = y2 + h2
 
+-- first case of a circle colliding with a rectangle
 -- checks if center of circle is *in* the rectangle
-circleInRectangle :: Figure -> Figure -> Bool
-circleInRectangle (Figure (Circle _) (Point mx my)) (Figure (Rectangle w h) (Point x y)) = cond
+circleInRect :: Figure -> Figure -> Bool
+circleInRect (Figure (Circle _) (Point mx my)) (Figure (Rectangle w h) (Point x y)) = cond
         where cond = my > y && my < tlc_y && mx > x && mx < trc_x
               tlc_y = y + h
               trc_x = x + w
+
+-- second case
+-- checks if a corner of a rectangle is *in* the circle
+rectCornerInCircle :: Figure -> Figure -> Bool
+rectCornerInCircle (Figure (Rectangle w h) (Point x y)) (Figure (Circle r) m) = cond
+        where cond = dist tlc m < r || dist trc m < r || dist blc m < r || dist brc m < r
+              tlc = (Point x y)
+              trc = (Point (x + w) y)
+              blc = (Point x (y + h))
+              brc = (Point (x + w) (y + h))
