@@ -195,36 +195,36 @@ overlap :: Figure -> Figure -> Bool
 overlap (Figure (Circle r1) p1) (Figure (Circle r2) p2) = cond
         where cond = dist p1 p2 < r1 + r2
 -- two rectangles
-overlap r1 r2 = cond
-        where cond = not (leftOf r1 r2) && not (rightOf r1 r2) && not (above r1 r2) && not (below r1 r2)
+overlap (Figure (Rectangle w1 h1) p1) (Figure (Rectangle w2 h2) p2) = cond
+        where cond = not (leftOf w1 p1 p2) && not (rightOf p1 w2 p2) && not (above h1 p1 p2) && not (below p1 h2 p2)
 -- a circle and a rectangle
 overlap c r = cond
         where cond = circleInRect c r || rectCornerInCircle r c || circleOverlapsSideRect c r
 
 -- determines whether the first rectangle is completely to the left of the second one
 -- thats the case when all points of the first have a smaller x-coordinate than the smallest x-coordinate of the second
-leftOf :: Figure -> Figure -> Bool
-leftOf (Figure (Rectangle w1 _) (Point x1 _)) (Figure (Rectangle _ _) (Point x2 _)) = cond
+leftOf :: Float -> Point -> Point -> Bool
+leftOf w1 (Point x1 _) (Point x2 _) = cond
         where cond = trc_x < x2
               trc_x = x_right
               x_right = x1 + w1
 
 -- checks if first rectangle is right of the second one
-rightOf :: Figure -> Figure -> Bool
-rightOf (Figure (Rectangle _ _) (Point x1 _)) (Figure (Rectangle w2 _) (Point x2 _)) = cond
+rightOf :: Point -> Float -> Point -> Bool
+rightOf (Point x1 _) w2 (Point x2 _) = cond
         where cond = x1 > trc_x
               trc_x = x_right
               x_right = x2 + w2
 
 -- checks if first rectangle is above the second one
-above :: Figure -> Figure -> Bool
-above (Figure (Rectangle _ h1) (Point _ y1)) (Figure (Rectangle _ _) (Point _ y2)) = cond
+above :: Float -> Point -> Point -> Bool
+above h1 (Point _ y1) (Point _ y2) = cond
         where cond = tlc_y < y2
               tlc_y = y1 + h1
 
 -- checks if first rectangle is below the second one
-below :: Figure -> Figure -> Bool
-below (Figure (Rectangle _ _) (Point _ y1)) (Figure (Rectangle _ h2) (Point _ y2)) = cond
+below :: Point -> Float -> Point -> Bool
+below (Point _ y1) h2 (Point _ y2) = cond
         where cond = y1 > tlc_y
               tlc_y = y2 + h2
 
