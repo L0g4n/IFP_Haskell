@@ -299,3 +299,16 @@ eval (Add e1 e2) = eval e1 + eval e2
 eval (Sub e1 e2) = eval e1 - eval e2
 eval (Mul e1 e2) = eval e1 * eval e2
 eval (Div e1 e2) = eval e1 `div` eval e2
+
+-- Exercise 3.5
+-- ============
+
+-- 3.5.1
+data Pair a = Pair a a
+        deriving Show
+
+swapPair :: Pair a -> Pair a
+swapPair (Pair a b) = (Pair b a)
+
+eqPair :: Eq a => Pair a -> Bool
+eqPair (Pair a b) = a == b
