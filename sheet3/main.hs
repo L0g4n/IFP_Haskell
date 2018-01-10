@@ -279,7 +279,7 @@ Exercise 3.3
 -}
 
 -- recursive type
--- `Div` is intege division
+-- `Div` is integer division
 data Expr = Lit Int | Add Expr Expr | Sub Expr Expr | Mul Expr Expr | Div Expr Expr
 
 -- 3.3.1
