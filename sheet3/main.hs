@@ -312,3 +312,16 @@ swapPair (Pair a b) = (Pair b a)
 
 eqPair :: Eq a => Pair a -> Bool
 eqPair (Pair a b) = a == b
+
+-- 3.5.2
+-- list is head : tail
+data List a = EmptyList | Cons a (List a) 
+        deriving (Eq, Ord, Show, Read)
+
+isEmpty :: List a -> Bool
+isEmpty EmptyList = True
+isEmpty _ = False
+
+lengthOfList :: List a -> Int
+lengthOfList EmptyList = 0
+lengthOfList (Cons _ xs) = 1 + lengthOfList xs
