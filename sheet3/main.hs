@@ -255,19 +255,19 @@ circleOverlapsSideRect r (Point mx my) w h (Point x y) = cond
               tlc_x = x
               trc_x = x + w
               m = (Point mx my)
-              top = (Point ((x + w) / 2) y)
+              top = (Point mx y)
 
               leftside = my > tlc_y && my < blc_y && dist m left < r
               tlc_y = y
               blc_y = y + h
-              left = (Point x ((y + h) / 2))
+              left = (Point x my)
 
               bottomside = mx > blc_x && mx < brc_x && dist m bottom < r
               blc_x = x
               brc_x = trc_x
-              bottom = (Point ((x + w) / 2) (y + h))
+              bottom = (Point mx blc_y)
 
               rightside = my > trc_y && my < brc_y && dist m right < r
               trc_y = y
               brc_y = blc_y
-              right = (Point (x + w) ((y + h) / 2))
+              right = (Point trc_x my)
