@@ -338,3 +338,21 @@ howMany Empty = 0
 howMany (Leaf _) = 1
 howMany (Node _ a b) = 1 + howMany a + howMany b
 
+-- 3.6.2
+depth :: Tree a -> Int
+depth Empty = 0
+depth (Leaf _) = 1
+depth (Node _ t1 t2) = 1 + max (depth t1) (depth t2)
+
+-- 3.6.3
+reflect :: Tree a -> Tree a
+reflect Empty = Empty
+reflect (Leaf x) = (Leaf x)
+reflect (Node x t1 t2) = Node x (reflect t2) (reflect t1)
+
+-- 3.6.5
+normalize :: Tree a -> Tree a
+normalize Empty = Empty
+normalize (Leaf x) = Leaf x
+normalize (Node x Empty Empty) = Leaf x
+normalize (Node x t1 t2) = Node x (normalize t1) (normalize t2)
