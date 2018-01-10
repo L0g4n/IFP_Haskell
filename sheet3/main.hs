@@ -304,6 +304,38 @@ eval (OpExpr Mod e1 e2) = eval e1 `mod` eval e2
 data Op = Add | Sub | Mul | Div | Mod
     deriving Eq
 
+-- Exercise 3.4
+-- ============
+
+data IExpr = ILit Int |
+             ADD IExpr IExpr |
+             SUB IExpr IExpr |
+             MUL IExpr IExpr |
+             MOD IExpr IExpr |
+             IF BExpr IExpr IExpr
+
+-- 3.4.1
+data BExpr = BLit Bool |
+             AND BExpr BExpr |
+             OR BExpr BExpr |
+             NOT BExpr |
+             EQUAL IExpr IExpr
+
+-- 3.4.2
+iEval :: IExpr -> Int
+iEval (ILit n) = n
+iEval (ADD e1 e2) = iEval e1 + iEval e2
+iEval (SUB e1 e2) = iEval e1 - iEval e2
+iEval (MUL e1 e2) = iEval e1 * iEval e2
+iEval (MOD e1 e2) = iEval e1 `mod` iEval e2
+iEval (IF be ie1 ie2) = if bEval be then iEval ie1 else iEval ie2
+
+bEval :: BExpr -> Bool
+bEval (BLit b) = b
+bEval (AND e1 e2) = if bEval e1 == True && bEval e2 == True then True else False
+bEval (OR e1 e2) = if bEval e1 == False && bEval e2 == False then False else True
+bEval (NOT e) = not (bEval e)
+bEval (EQUAL e1 e2) = if iEval e1 == iEval e2 then True else False
 
 -- Exercise 3.5
 -- ============
