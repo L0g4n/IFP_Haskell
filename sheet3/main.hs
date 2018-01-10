@@ -279,33 +279,38 @@ Exercise 3.3
 -}
 
 -- recursive type
--- `Div` is integer division
-data Expr = Lit Int | Add Expr Expr | Sub Expr Expr | Mul Expr Expr | Div Expr Expr
+data Expr = Lit Int
+          | OpExpr Op Expr Expr
+    deriving Eq
 
 -- 3.3.1
 -- counts the number of operations in an expression
 size :: Expr -> Int
 size (Lit _) = 0
-size (Add e1 e2) = 1 + size e1 + size e2
-size (Sub e1 e2) = 1 + size e1 + size e2
-size (Mul e1 e2) = 1 + size e1 + size e2
-size (Div e1 e2) = 1 + size e1 + size e2
+size (OpExpr _ e1 e2) = 1 + size e1 + size e2
 
 -- 3.3.2
 -- evaluates the expression
 eval :: Expr -> Int
 eval (Lit n) = n
-eval (Add e1 e2) = eval e1 + eval e2
-eval (Sub e1 e2) = eval e1 - eval e2
-eval (Mul e1 e2) = eval e1 * eval e2
-eval (Div e1 e2) = eval e1 `div` eval e2
+eval (OpExpr Add e1 e2) = eval e1 + eval e2
+eval (OpExpr Sub e1 e2) = eval e1 - eval e2
+eval (OpExpr Mul e1 e2) = eval e1 * eval e2
+eval (OpExpr Div e1 e2) = eval e1 `div` eval e2
+eval (OpExpr Mod e1 e2) = eval e1 `mod` eval e2
+
+-- 3.3.3
+-- `Div` is integer division
+data Op = Add | Sub | Mul | Div | Mod
+    deriving Eq
+
 
 -- Exercise 3.5
 -- ============
 
 -- 3.5.1
 data Pair a = Pair a a
-        deriving Show
+    deriving Show
 
 swapPair :: Pair a -> Pair a
 swapPair (Pair a b) = (Pair b a)
