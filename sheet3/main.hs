@@ -356,3 +356,9 @@ normalize Empty = Empty
 normalize (Leaf x) = Leaf x
 normalize (Node x Empty Empty) = Leaf x
 normalize (Node x t1 t2) = Node x (normalize t1) (normalize t2)
+
+-- 3.6.6
+mapTree :: (a -> b) -> Tree a -> Tree b
+mapTree _ Empty = Empty
+mapTree f (Leaf x) = Leaf (f x)
+mapTree f (Node x t1 t2) = Node (f x) (mapTree f t1) (mapTree f t2)
