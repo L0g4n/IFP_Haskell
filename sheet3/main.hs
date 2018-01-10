@@ -198,8 +198,8 @@ overlap (Figure (Circle r1) p1) (Figure (Circle r2) p2) = cond
 overlap (Figure (Rectangle w1 h1) p1) (Figure (Rectangle w2 h2) p2) = cond
         where cond = not (leftOf w1 p1 p2) && not (rightOf p1 w2 p2) && not (above h1 p1 p2) && not (below p1 h2 p2)
 -- a circle and a rectangle
-overlap c r = cond
-        where cond = circleInRect c r || rectCornerInCircle r c || circleOverlapsSideRect c r
+overlap (Figure (Circle r1) p1)  (Figure (Rectangle w h) p2) = cond
+        where cond = circleInRect p1 w h p2 || rectCornerInCircle w h p1 r1 p1 || circleOverlapsSideRect r1 p1 w h p2
 
 -- determines whether the first rectangle is completely to the left of the second one
 -- thats the case when all points of the first have a smaller x-coordinate than the smallest x-coordinate of the second
@@ -230,16 +230,16 @@ below (Point _ y1) h2 (Point _ y2) = cond
 
 -- first case of a circle colliding with a rectangle
 -- checks if center of circle is *in* the rectangle
-circleInRect :: Figure -> Figure -> Bool
-circleInRect (Figure (Circle _) (Point mx my)) (Figure (Rectangle w h) (Point x y)) = cond
+circleInRect :: Point -> Float -> Float -> Point -> Bool
+circleInRect (Point mx my) w h (Point x y) = cond
         where cond = my > y && my < tlc_y && mx > x && mx < trc_x
               tlc_y = y + h
               trc_x = x + w
 
 -- second case
 -- checks if a corner of a rectangle is *in* the circle
-rectCornerInCircle :: Figure -> Figure -> Bool
-rectCornerInCircle (Figure (Rectangle w h) (Point x y)) (Figure (Circle r) m) = cond
+rectCornerInCircle :: Float -> Float -> Point -> Float -> Point -> Bool
+rectCornerInCircle w h (Point x y) r m = cond
         where cond = dist tlc m < r || dist trc m < r || dist blc m < r || dist brc m < r
               tlc = (Point x y)
               trc = (Point (x + w) y)
@@ -248,8 +248,8 @@ rectCornerInCircle (Figure (Rectangle w h) (Point x y)) (Figure (Circle r) m) = 
 
 -- third and last case
 -- checks if a circle overlaps a side of a rectangle
-circleOverlapsSideRect :: Figure -> Figure -> Bool
-circleOverlapsSideRect (Figure (Circle r) (Point mx my)) (Figure (Rectangle w h) (Point x y)) = cond
+circleOverlapsSideRect :: Float -> Point -> Float -> Float -> Point -> Bool
+circleOverlapsSideRect r (Point mx my) w h (Point x y) = cond
         where cond = topside || leftside || bottomside || rightside
               topside = mx > tlc_x && mx < trc_x && dist m top < r
               tlc_x = x
