@@ -271,3 +271,20 @@ circleOverlapsSideRect r (Point mx my) w h (Point x y) = cond
               trc_y = y
               brc_y = blc_y
               right = (Point trc_x my)
+
+{- 
+=============
+Exercise 3.3
+=============
+-}
+
+-- recursive type
+data Expr = Lit Int | Add Expr Expr | Sub Expr Expr
+
+-- 3.3.1
+
+-- counts the number of operations in an expression
+size :: Expr -> Int
+size (Lit _) = 0
+size (Add e1 e2) = 1 + size e1 + size e2
+size (Sub e1 e2) = 1 + size e1 + size e2
