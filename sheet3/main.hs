@@ -279,12 +279,23 @@ Exercise 3.3
 -}
 
 -- recursive type
-data Expr = Lit Int | Add Expr Expr | Sub Expr Expr
+-- `Div` is intege division
+data Expr = Lit Int | Add Expr Expr | Sub Expr Expr | Mul Expr Expr | Div Expr Expr
 
 -- 3.3.1
-
 -- counts the number of operations in an expression
 size :: Expr -> Int
 size (Lit _) = 0
 size (Add e1 e2) = 1 + size e1 + size e2
 size (Sub e1 e2) = 1 + size e1 + size e2
+size (Mul e1 e2) = 1 + size e1 + size e2
+size (Div e1 e2) = 1 + size e1 + size e2
+
+-- 3.3.2
+-- evaluates the expression
+eval :: Expr -> Int
+eval (Lit n) = n
+eval (Add e1 e2) = eval e1 + eval e2
+eval (Sub e1 e2) = eval e1 - eval e2
+eval (Mul e1 e2) = eval e1 * eval e2
+eval (Div e1 e2) = eval e1 `div` eval e2
