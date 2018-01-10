@@ -325,3 +325,16 @@ isEmpty _ = False
 lengthOfList :: List a -> Int
 lengthOfList EmptyList = 0
 lengthOfList (Cons _ xs) = 1 + lengthOfList xs
+
+-- Exercise 3.6
+-- ============
+
+data Tree a = Empty | Leaf a | Node a (Tree a) (Tree a) 
+        deriving Show
+
+-- 3.6.1
+howMany :: Tree a -> Int
+howMany Empty = 0
+howMany (Leaf _) = 1
+howMany (Node _ a b) = 1 + howMany a + howMany b
+
