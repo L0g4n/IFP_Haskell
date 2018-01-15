@@ -1,5 +1,8 @@
 module Main where
 
+import qualified Data.Maybe
+import qualified Data.List
+
 -- main method
 main :: IO ()
 main = return ()
@@ -416,3 +419,23 @@ mapTree :: (a -> b) -> Tree a -> Tree b
 mapTree _ Empty = Empty
 mapTree f (Leaf x) = Leaf (f x)
 mapTree f (Node x t1 t2) = Node (f x) (mapTree f t1) (mapTree f t2)
+
+-- 3.6.7
+unsafeIndex :: Eq a => a -> [a] -> Int
+unsafeIndex a as = Data.Maybe.fromJust $ Data.List.elemIndex a as
+
+split :: Eq a => a -> [a] -> ([a], [a])
+split a as = (as1, tail as2)
+    where (as1, as2) = splitAt (unsafeIndex a as) as
+
+-- receives pre-order and in-order traversals of a tree and reconstructs the original tree
+listsToTree :: Eq a => [a] -> [a] -> Tree a
+listsToTree [] [] = Empty
+listsToTree [a] [a']
+    | a == a' = Leaf a
+    | otherwise = error "Something went wrong. Wrong input data."
+listsToTree (a : preList) traverseList = Node a t1 t2
+    where t1 = listsToTree (take (length as1) preList) as1
+          t2 = listsToTree (drop (length as1) preList) as2
+          (as1, as2) = split a traverseList
+listsToTree _ _ = error "Incompatible input data."
