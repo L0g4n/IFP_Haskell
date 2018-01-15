@@ -173,7 +173,7 @@ data YIntercept = Intercept Float | Undefined
 
 getYIntercept :: Point -> Slope -> YIntercept
 getYIntercept (Point x y) (Value m) = b
-        where b = (Intercept (y - m * x))
+        where b = (Intercept $ y - m * x)
 getYIntercept _ _ = Undefined
 
 -- 3.2.9
