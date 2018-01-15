@@ -162,7 +162,7 @@ getSlope :: Point -> Point -> Slope
 getSlope (Point x1 y1) (Point x2 y2) = m
     where m = if x1 == x2 && y2 == y1
               then Infinite
-              else (Value (diffy / diffx))
+              else (Value $ diffy / diffx)
                 where diffy = y2 - y1
                       diffx = x2 - x1
 
