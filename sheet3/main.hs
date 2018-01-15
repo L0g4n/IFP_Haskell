@@ -387,6 +387,23 @@ reflect Empty = Empty
 reflect (Leaf x) = (Leaf x)
 reflect (Node x t1 t2) = Node x (reflect t2) (reflect t1)
 
+-- 3.6.4
+-- inorder 
+traversal :: Tree a -> [a]
+traversal Empty = []
+traversal (Leaf x) = [x]
+traversal (Node x ls rs) = traversal ls ++ [x] ++ traversal rs
+
+post :: Tree a -> [a]
+post Empty = []
+post (Leaf x) = [x]
+post (Node x ls rs) = post ls ++ post rs ++ [x]
+
+pre :: Tree a -> [a]
+pre Empty = []
+pre (Leaf x) = [x]
+pre (Node x ls rs) = [x] ++ pre ls ++ pre rs
+
 -- 3.6.5
 normalize :: Tree a -> Tree a
 normalize Empty = Empty
