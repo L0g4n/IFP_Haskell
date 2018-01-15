@@ -129,7 +129,7 @@ howOld (Person _ age) = age
 
 addAges :: Person -> Person -> Age
 addAges (Person _ (Years age)) (Person _ (Years age')) = sumAge
-    where sumAge = (Years (age + age'))
+    where sumAge = Years $ age + age'
 
 -- 3.2.3
 -- Circle has a radius, Rectange has width & height
