@@ -439,3 +439,12 @@ listsToTree (a : preList) traverseList = Node a t1 t2
           t2 = listsToTree (drop (length as1) preList) as2
           (as1, as2) = split a traverseList
 listsToTree _ _ = error "Incompatible input data."
+
+-- Exercise 3.7
+-- ============
+
+-- 3.7.1 
+data GenTree a = GenTree a [GenTree a]
+    deriving Show
+
+
