@@ -447,4 +447,7 @@ listsToTree _ _ = error "Incompatible input data."
 data GenTree a = GenTree a [GenTree a]
     deriving Show
 
-
+-- 3.7.2
+leaves :: GenTree a -> Int
+leaves (GenTree _ []) = 1
+leaves (GenTree _ sts) = sum (map leaves sts)
