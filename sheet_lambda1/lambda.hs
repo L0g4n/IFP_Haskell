@@ -1,8 +1,10 @@
 module Lambda where
 
+import Data.List (union, delete)
 import Prelude hiding (id)
 
 data Var = Name String
+    deriving Eq
 
 instance Show Var where
     show (Name x) = x
@@ -15,6 +17,17 @@ instance Show Expr where
     show (LVar x) = show x
     show (LAbs x t) = "(\\" ++ show x ++ ". " ++ show t ++ ")"
     show (LApp t1 t2) = show t1 ++ " " ++ show t2
+
+allVars :: Expr -> [Var]
+allVars (LVar x) = [x]
+allVars (LAbs x t) = union [x] (allVars t)
+allVars (LApp t1 t2) = union (allVars t1) (allVars t2)
+
+freeVars :: Expr -> [Var]
+freeVars (LVar x) = [x]
+freeVars (LAbs x t) = delete x (freeVars t)
+freeVars (LApp t1 t2) = union (freeVars t1) (freeVars t2)
+
 
 x :: Var
 x = Name "x"
