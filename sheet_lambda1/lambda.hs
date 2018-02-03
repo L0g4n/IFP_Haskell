@@ -1,8 +1,11 @@
--- Provides a basic implementation of the Lambda Calculus
+-- Provides a basic implementation of the (untyped) Lambda Calculus
 module Lambda where
+
+import Data.List (union, delete)
 
 -- Data type for indexed variables, e.g. "x1, x2, ..."
 data LamVariable = Name String | Idx Int String
+    deriving Eq
 
 -- instance for show to provide "fancy printing" of variables
 instance Show LamVariable where
@@ -16,10 +19,16 @@ instance Show LamVariable where
 data LamExpr = Var LamVariable
              | Abs LamVariable LamExpr
              | App LamExpr LamExpr
-    -- deriving Eq
+    deriving Eq
 
 -- pretty printing of lambda expressions
 instance Show LamExpr where
     show (Var x) = show x
     show (Abs x e) = "(λ" ++ show x ++ ". " ++ show e ++ ")"
     show (App e1 e2) = show e1 ++ " " ++ show e2
+
+-- returns a list of free variables in a given lambda expression
+freeVarsLam :: LamExpr -> [LamVariable]
+freeVarsLam (Var x) = [x]
+freeVarsLam (Abs x e) = delete x (freeVarsLam e) -- delete the bound variable x from the rest
+freeVarsLam (App e1 e2) = freeVarsLam e1 `union` freeVarsLam e2
