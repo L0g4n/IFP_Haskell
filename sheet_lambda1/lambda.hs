@@ -32,3 +32,9 @@ freeVarsLam :: LamExpr -> [LamVariable]
 freeVarsLam (Var x) = [x]
 freeVarsLam (Abs x e) = delete x (freeVarsLam e) -- delete the bound variable x from the rest
 freeVarsLam (App e1 e2) = freeVarsLam e1 `union` freeVarsLam e2
+
+-- returns the list of all variables in a given lambda expression
+allVarsLam :: LamExpr -> [LamVariable]
+allVarsLam (Var x) = [x]
+allVarsLam (Abs x e) = [x] `union` allVarsLam e
+allVarsLam (App e1 e2) = allVarsLam e1 `union` allVarsLam e2
