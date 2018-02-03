@@ -10,3 +10,16 @@ instance Show LamVariable where
     show (Idx i x)
         | i == 0 = x -- Index 0 is always omitted
         | otherwise = x ++ show i
+
+-- Lambda expressions are simple variables,
+-- applications of expressions to other expressions or abstractions, which represent functions with parameters and a body
+data LamExpr = Var LamVariable
+             | Abs LamVariable LamExpr
+             | App LamExpr LamExpr
+    -- deriving Eq
+
+-- pretty printing of lambda expressions
+instance Show LamExpr where
+    show (Var x) = show x
+    show (Abs x e) = "(λ" ++ show x ++ ". " ++ show e ++ ")"
+    show (App e1 e2) = show e1 ++ " " ++ show e2
